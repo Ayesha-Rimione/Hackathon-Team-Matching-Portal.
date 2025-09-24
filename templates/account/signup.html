@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load socialaccount %}
+
+{% block title %}Sign Up · HackMate{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h1 class="h4 mb-3 text-center">Create your HackMate account</h1>
+
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+                    {% endif %}
+
+                    <form method="post" action="{% url 'account_signup' %}">
+                        {% csrf_token %}
+
+                        {% for field in form %}
+                            <div class="mb-3">
+                                <label class="form-label" for="id_{{ field.name }}">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <div class="form-text">{{ field.help_text }}</div>
+                                {% endif %}
+                                {% if field.errors %}
+                                    <div class="text-danger small">{{ field.errors|striptags }}</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="terms" required>
+                            <label class="form-check-label" for="terms">I agree to the terms and privacy policy</label>
+                        </div>
+
+                        <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                    </form>
+
+                    <hr class="my-4">
+                    <div class="text-center">
+                        {% get_providers as socialaccount_providers %}
+                        {% if socialaccount_providers %}
+                            <p class="mb-2">Or sign up with</p>
+                            <div class="d-grid gap-2">
+                                {% for provider in socialaccount_providers %}
+                                    {% if provider.id == 'google' %}
+                                        <a class="btn btn-outline-dark" href="{% provider_login_url 'google' %}"><i class="fab fa-google me-2"></i>Google</a>
+                                    {% elif provider.id == 'github' %}
+                                        <a class="btn btn-outline-dark" href="{% provider_login_url 'github' %}"><i class="fab fa-github me-2"></i>GitHub</a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="alert alert-info mb-0">Social login is not configured yet.</div>
+                        {% endif %}
+                    </div>
+
+                    <p class="text-center mt-4 mb-0">Already have an account? <a href="{% url 'account_login' %}">Log in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

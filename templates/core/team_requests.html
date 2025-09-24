@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Join Requests · {{ team.name }}{% endblock %}
+
+{% block content %}
+    <h1 class="h4 mb-3">Join Requests for {{ team.name }}</h1>
+    {% if requests %}
+        <div class="list-group">
+            {% for r in requests %}
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <div><strong>{{ r.user.get_full_name|default:r.user.username|default:r.user.email }}</strong></div>
+                        <div class="small text-muted">{{ r.created_at|date:"M d, Y H:i" }} · {{ r.get_status_display }}</div>
+                        {% if r.message %}<div class="mt-1">{{ r.message }}</div>{% endif %}
+                    </div>
+                    {% if team.creator == request.user and r.status == 'pending' %}
+                        <div class="btn-group">
+                            <a class="btn btn-sm btn-primary" href="{% url 'team_request_action' team.pk r.id 'accept' %}">Accept</a>
+                            <a class="btn btn-sm btn-outline-danger" href="{% url 'team_request_action' team.pk r.id 'reject' %}">Reject</a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">No join requests yet.</div>
+    {% endif %}
+{% endblock %}
+
+

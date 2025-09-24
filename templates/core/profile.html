@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile · HackMate{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12 mb-4">
+            <h1 class="h3">My Profile</h1>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="profile-avatar mb-3">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h5 class="mb-1">{{ request.user.get_full_name|default:request.user.username|default:request.user.email }}</h5>
+                    <p class="text-muted mb-0">{{ request.user.profile.university|default:request.user.profile.organization }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header">About</div>
+                <div class="card-body">
+                    <p class="mb-2"><strong>Status:</strong> {{ request.user.profile.get_status_display }}</p>
+                    <p class="mb-2"><strong>Experience:</strong> {{ request.user.profile.get_experience_level_display }}</p>
+                    <p class="mb-0">{{ request.user.profile.bio|default:"No bio yet." }}</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">Skills</div>
+                <div class="card-body">
+                    {% if request.user.profile.skills.all %}
+                        {% for skill in request.user.profile.skills.all %}
+                            <span class="skill-tag">{{ skill.name }}</span>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted mb-0">No skills added yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

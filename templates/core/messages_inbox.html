@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Messages · Inbox{% endblock %}
+
+{% block content %}
+    <h1 class="h4 mb-3">Inbox</h1>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card mb-3">
+                <div class="card-header">Received</div>
+                <div class="list-group list-group-flush">
+                    {% for m in inbox %}
+                        <div class="list-group-item">
+                            <div class="small text-muted">From {{ m.sender.get_full_name|default:m.sender.username|default:m.sender.email }} · {{ m.created_at|date:"M d, Y H:i" }}</div>
+                            <div>{{ m.content }}</div>
+                        </div>
+                    {% empty %}
+                        <div class="list-group-item text-muted">No messages</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card mb-3">
+                <div class="card-header">Sent</div>
+                <div class="list-group list-group-flush">
+                    {% for m in sent %}
+                        <div class="list-group-item">
+                            <div class="small text-muted">To {{ m.receiver.get_full_name|default:m.receiver.username|default:m.receiver.email }} · {{ m.created_at|date:"M d, Y H:i" }}</div>
+                            <div>{{ m.content }}</div>
+                        </div>
+                    {% empty %}
+                        <div class="list-group-item text-muted">No messages</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

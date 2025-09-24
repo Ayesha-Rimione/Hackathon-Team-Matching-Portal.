@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}{{ team.name }} · Team · HackMate{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="team-card mb-3">
+                <div class="team-header d-flex align-items-center justify-content-between">
+                    <h2 class="h4 mb-0">{{ team.name }}</h2>
+                    {% if team.image %}
+                        <img src="{{ team.image.url }}" class="rounded" style="height:48px; width:48px; object-fit: cover;">
+                    {% endif %}
+                </div>
+                <div class="team-body">
+                    <p class="mb-2">{{ team.description }}</p>
+                    {% if team.requirements %}
+                        <p class="mb-2"><strong>Requirements:</strong> {{ team.requirements }}</p>
+                    {% endif %}
+                    {% if team.interested_hackathon %}
+                        <p class="mb-2"><strong>Interested Hackathon:</strong> {{ team.interested_hackathon }}</p>
+                    {% endif %}
+                    <p class="mb-2"><strong>Leader:</strong> {{ team.creator.get_full_name|default:team.creator.username|default:team.creator.email }}</p>
+                    <p class="mb-0"><strong>Members ({{ team.get_member_count }}/{{ team.max_members }}):</strong></p>
+                    <div class="team-members mt-2">
+                        {% for member in team.members.all %}
+                            <div class="member-avatar" title="{{ member.get_full_name|default:member.username|default:member.email }}">
+                                {{ member.first_name|default:member.username|default:member.email|slice:":1"|upper }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            {% if not is_leader and not is_member %}
+                <form method="post" class="card p-3" action="{% url 'team_detail' team.pk %}">
+                    {% csrf_token %}
+                    <div class="mb-2">Request to join this team</div>
+                    <textarea class="form-control mb-2" name="message" rows="3" placeholder="Your message (optional)"></textarea>
+                    <button class="btn btn-primary" type="submit">Send Join Request</button>
+                </form>
+            {% endif %}
+
+            <div class="card mt-3 p-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div><strong>Message the leader</strong></div>
+                    <a class="btn btn-outline-primary btn-sm" href="{% url 'message_send' team.creator.id %}">Message {{ team.creator.first_name|default:team.creator.username }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card p-3">
+                <a class="btn btn-outline-secondary w-100 mb-2" href="{% url 'messages_inbox' %}">Go to Inbox</a>
+                {% if request.user == team.creator %}
+                    <a class="btn btn-outline-secondary w-100" href="{% url 'team_requests' team.pk %}">Manage Join Requests</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

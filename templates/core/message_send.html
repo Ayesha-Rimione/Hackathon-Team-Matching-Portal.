@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Send Message{% endblock %}
+
+{% block content %}
+    <h1 class="h4 mb-3">Message {{ receiver.get_full_name|default:receiver.username|default:receiver.email }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label" for="content">Message</label>
+            <textarea name="content" id="content" class="form-control" rows="4" required></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Send</button>
+        <a class="btn btn-outline-secondary" href="{% url 'messages_inbox' %}">Cancel</a>
+    </form>
+{% endblock %}
+
+

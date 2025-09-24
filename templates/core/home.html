@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}HackMate - Find Your Perfect Team{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-center py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-dark">
+                <h1 class="display-4 fw-bold mb-4">
+                    Find Your Perfect Team for Hackathons
+                </h1>
+                <p class="lead mb-4">
+                    Connect with developers, designers, and innovators. Build amazing projects together 
+                    and participate in the most exciting tech events around the world.
+                </p>
+                <div class="hero-buttons">
+                    <a href="{% url 'events' %}" class="btn btn-dark btn-lg me-3">Browse Events</a>
+                    <a href="{% url 'teams' %}" class="btn btn-outline-dark btn-lg">Find Teams</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="display-5 fw-bold">Why Choose HackMate?</h2>
+                <p class="lead text-muted">Everything you need to succeed in hackathons and tech events</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4 h-100">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-search fa-3x text-primary"></i>
+                    </div>
+                    <h4>Smart Matching</h4>
+                    <p class="text-muted">
+                        Find teammates based on skills, experience, and interests. 
+                        Our AI-powered algorithm ensures perfect team compatibility.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4 h-100">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-calendar-check fa-3x text-primary"></i>
+                    </div>
+                    <h4>Event Management</h4>
+                    <p class="text-muted">
+                        Discover and register for hackathons, workshops, and tech events. 
+                        Stay updated with deadlines and requirements.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4 h-100">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-comments fa-3x text-primary"></i>
+                    </div>
+                    <h4>Team Communication</h4>
+                    <p class="text-muted">
+                        Built-in messaging system for seamless team collaboration. 
+                        Share ideas, files, and updates in real-time.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section py-5 bg-light">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-item">
+                    <h3 class="display-6 fw-bold text-primary">Talented</h3>
+                    <p class="text-muted">Uni students</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-item">
+                    <h3 class="display-6 fw-bold text-primary">Events</h3>
+                    <p class="text-muted">Update</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-item">
+                    <h3 class="display-6 fw-bold text-primary">Get</h3>
+                    <p class="text-muted">Your Teams</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-item">
+                    <h3 class="display-6 fw-bold text-primary">25+</h3>
+                    <p class="text-muted">Universities</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5 text-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="display-5 fw-bold mb-4">Ready to Build Something Amazing?</h2>
+                <p class="lead mb-4">
+                    Join thousands of developers, designers, and innovators who are already 
+                    using HackMate to find their perfect teams and participate in exciting events.
+                </p>
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'account_signup' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-rocket me-2"></i>Start Your Journey
+                    </a>
+                {% else %}
+                    <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section {
+        background-image: url("{% static 'images/hero.png' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: #ffffff;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        position: relative; /* ensure stacking context */
+    }
+    /* keep interactive content above background and clickable */
+    .hero-section > .container { position: relative; z-index: 1; }
+    
+    .feature-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .feature-icon {
+        color: #667eea;
+    }
+    
+    .stat-item h3 {
+        color: #667eea;
+    }
+    
+    .cta-section {
+        background: linear-gradient(135deg, #f093fb 0%,rgb(155, 29, 86) 100%);
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block body_class %}home-with-hero-bg{% endblock %}
+
+{% block extra_js %}
+<style>
+    body.home-with-hero-bg {
+        background-image: url("{% static 'images/hero.png' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    /* optional contrast for main content readability */
+    main.container { background-color: rgba(255,255,255,0.0); }
+    .navbar { backdrop-filter: blur(2px); }
+ </style>
+{% endblock %}

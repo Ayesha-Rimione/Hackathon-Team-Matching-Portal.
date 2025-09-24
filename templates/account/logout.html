@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Log out · HackMate{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-body p-4 text-center">
+                    <h1 class="h4 mb-3">Sign out of HackMate</h1>
+                    <p class="text-muted">Are you sure you want to log out?</p>
+
+                    <form method="post" action="{% url 'account_logout' %}">
+                        {% csrf_token %}
+                        <button class="btn btn-danger w-100" type="submit">Log out</button>
+                    </form>
+
+                    <a class="d-inline-block mt-3" href="{% url 'dashboard' %}">Cancel and go back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
