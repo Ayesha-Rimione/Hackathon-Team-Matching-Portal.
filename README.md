@@ -69,7 +69,7 @@ HackMate is a comprehensive web application that connects students, professional
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/hackmate.git
+   git clone https://github.com/yourusername/hackmate.git](https://github.com/Ayesha-Rimione/Hackathon-Team-Matching-Portal..git
    cd hackmate
    ```
 
@@ -283,25 +283,16 @@ We welcome contributions! Please follow these steps:
 - Update documentation for API changes
 - Ensure responsive design for mobile devices
 
-## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
 - Django community for the excellent web framework
 - Bootstrap team for the responsive CSS framework
 - Font Awesome for the beautiful icon library
-- All contributors and users of HackMate
 
-## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/hackmate/issues)
-- **Documentation**: [Wiki](https://github.com/yourusername/hackmate/wiki)
-- **Email**: support@hackmate.com
 
----
-
-**Built with ❤️ for the hackathon community**
+**Built with ❤️ for the University students who don't find their perfect match for Hackathon team!**
 
 *HackMate - Where great teams are born*
