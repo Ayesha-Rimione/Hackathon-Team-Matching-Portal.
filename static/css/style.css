@@ -120,6 +120,12 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--accent-color) !important;
 }
 
+/* User profile dropdown fix */
+.navbar .dropdown-menu {
+    position: absolute; /* required for z-index to work */
+    z-index: 9999; /* bring dropdown above hero section */
+}
+
 /* Hero Section */
 .hero-section {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
@@ -128,6 +134,7 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     position: relative;
     overflow: hidden;
+    z-index: 1; /* keep hero section behind dropdown */
 }
 
 .hero-section::before {
@@ -139,6 +146,12 @@ h1, h2, h3, h4, h5, h6 {
     bottom: 0;
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
     opacity: 0.3;
+}
+
+/* Hero image inside hero section */
+.hero-section img {
+    position: relative;
+    z-index: 1; /* image stays behind dropdown */
 }
 
 /* Feature Cards */
@@ -489,4 +502,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .shadow-custom {
     box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+}
+/* Ensure hero image always stays in background */
+.hero-section img {
+    position: relative;
+    z-index: 0;
+    pointer-events: none; /* prevents it from blocking dropdown clicks */
+}
+
+/* Dropdown always on top */
+.navbar .dropdown-menu {
+    z-index: 2000 !important;
+    position: absolute;
 }

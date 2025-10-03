@@ -95,3 +95,4 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS("Seeded 17 users, 5 events, and 7 teams."))
 
 
+

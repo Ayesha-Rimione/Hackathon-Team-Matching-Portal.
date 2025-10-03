@@ -18,7 +18,7 @@
 </head>
 <body class="{% block body_class %}{% endblock %}">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#851081;">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#851081; z-index: 1050; position: relative;">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
                 <img src="{% static 'images/logo.png' %}" alt="HackMate" class="me-2 rounded-circle" style="height:28px; width:28px; object-fit:cover;">
@@ -61,7 +61,7 @@
                                 {% endif %}
                                 {{ user.get_full_name|default:user.username|default:user.email }}
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu dropdown-menu-end" style="z-index: 2000; position: absolute;">
                                 <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
                                 <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                                 <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Profile</a></li>
